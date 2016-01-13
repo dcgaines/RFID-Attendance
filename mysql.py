@@ -9,7 +9,7 @@ import datetime
 
 def connect():
     # Mysql connection setup. Insert your values here
-    return MySQLdb.connect(host="localhost", user="guest", passwd="guest123", db="HOURS")
+    return MySQLdb.connect(host="localhost", user="user", passwd="chickens", db="HOURS")
 
 def getName(tagId):
     db = connect()
