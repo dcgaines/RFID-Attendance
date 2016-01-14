@@ -12,6 +12,8 @@ db = MySQLdb.connect(host="localhost", user="user", passwd="chickens", db="HOURS
 cur = db.cursor()
 another = "yes"
 ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=1)
+delete_statement = "DELETE FROM hours WHERE tagId = %s"
+insert_statement = "INSERT INTO hours (tagId, first, last, status, hoursToday, hoursThisWeek) VALUES (%s, %s, %s, 0, 0, 0)"
 
 while another=="yes":
     first = raw_input("First name: ")
@@ -20,11 +22,12 @@ while another=="yes":
     while len(tag) == 0:
         tag = ser.read(12)
     print tag
-    cur.execute("INSERT INTO hours (tagId, first, last, status, hoursToday, hoursThisWeek) VALUES (%s, %s, %s, 0, 0, 0)", tag, first, last)
+    data = (tag, first, last, 0, 0, 0)
+    cur.execute(insert_statement, data)
     db.commit()
     another = input("Input another? (yes, no, deleteLast): ")
     if another == "deleteLast":
-       cur.execute("DELETE FROM hours WHERE tagId = %s", tag)
+       cur.execute(delete_statement, tag)
        db.commit()
        another = input("Input another? (yes, no): ")
 
