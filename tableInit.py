@@ -8,7 +8,7 @@
 import MySQLdb
 import serial
 
-db = MySQLdb.connect(host="localhost", user="guest", passwd="guest123", db="HOURS")
+db = MySQLdb.connect(host="localhost", user="user", passwd="chickens", db="HOURS")
 cur = db.cursor()
 another = "yes"
 ser = serial.Serial('/dev/ttyAMAO', 2400, timeout=1)
