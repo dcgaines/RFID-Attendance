@@ -22,7 +22,7 @@ while another=="yes":
     while len(tag) == 0:
         tag = ser.read(12)
     print tag
-    data = (tag, first, last, 0, 0, 0)
+    data = (tag, first, last)
     cur.execute(insert_statement, data)
     db.commit()
     another = input("Input another? (yes, no, deleteLast): ")
