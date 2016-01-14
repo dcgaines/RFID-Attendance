@@ -14,8 +14,8 @@ another = "yes"
 ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=1)
 
 while another=="yes":
-    first = input("First name: ")
-    last = input("Last name: ")
+    first = raw_input("First name: ")
+    last = raw_input("Last name: ")
     tag = ""
     while len(tag) == 0:
         tag = ser.read(12)

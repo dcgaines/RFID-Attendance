@@ -9,7 +9,7 @@
 import serial
 import mysql
 
-day = input("What day is today? ")
+day = raw_input("What day is today? ")
 
 
 
