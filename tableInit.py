@@ -19,6 +19,7 @@ while another=="yes":
     tag = ""
     while len(tag) == 0:
         tag = ser.read(12)
+    print tag
     cur.execute("INSERT INTO hours (tagId, first, last, status, hoursToday, hoursThisWeek) VALUES (%s, %s, %s, 0, 0, 0)", tag, first, last)
     db.commit()
     another = input("Input another? (yes, no, deleteLast): ")
