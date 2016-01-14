@@ -11,7 +11,7 @@ import serial
 db = MySQLdb.connect(host="localhost", user="user", passwd="chickens", db="HOURS")
 cur = db.cursor()
 another = "yes"
-ser = serial.Serial('/dev/ttyAMAO', 2400, timeout=1)
+ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=1)
 
 while another=="yes":
     first = input("First name: ")
