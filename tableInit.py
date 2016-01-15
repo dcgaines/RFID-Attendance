@@ -21,8 +21,8 @@ while another=="yes":
     last = raw_input("Last name: ")
     tag = ""
     while len(tag) == 0:
-        tag = ser.read(10)
-    tag = str.strip(tag)
+        tag = ser.read(12)
+    tag = tag[1:11]
     print tag
     data = (tag, first, last)
     cur.execute(insert_statement, data)
