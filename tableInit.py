@@ -26,7 +26,7 @@ while another=="yes":
     data = (tag, first, last)
     cur.execute(insert_statement, data)
     db.commit()
-    another = input("Input another? (yes, no, deleteLast): ")
+    another = raw_input("Input another? (yes, no, deleteLast): ")
     if another == "deleteLast":
        cur.execute(delete_statement, tag)
        db.commit()
