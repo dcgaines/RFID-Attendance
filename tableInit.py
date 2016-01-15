@@ -4,6 +4,7 @@
 #ThunderChickens 217
 #dcgaines@mtu.edu
 
+#!/usr/bin/python
 
 import MySQLdb
 import serial
@@ -13,7 +14,7 @@ cur = db.cursor()
 another = "yes"
 ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=1)
 delete_statement = "DELETE FROM hours WHERE tagId = %s"
-insert_statement = "INSERT INTO hours (tagId, first, last, status, hoursToday, hoursThisWeek) VALUES (%s, %s, %s, 0, 0, 0)"
+insert_statement = "INSERT INTO hours (tagId, first, last, status, hoursToday, hoursThisWeek) VALUES ('%s', '%s', '%s', 0, 0, 0)"
 
 while another=="yes":
     first = raw_input("First name: ")
