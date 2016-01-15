@@ -16,7 +16,9 @@ day = raw_input("What day is today? ")
 ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=1)
 while True:
     #continuously loops scanning for a card until it receives a value
-    string = ser.read(12)   
+    string = ser.read(12)
+    string = string[1:11]
+    
     if len(string) == 0:
         print "Please scan your card..."
         continue
@@ -25,7 +27,7 @@ while True:
         #proper interface syntax
 
         #tagId of master card used to log all out.
-        if string == 'AAAAAAAAAAAA':
+        if string == '0F03040D6F':
             print "Logging all out"
             if day == "Saturday" || day == "saturday":
                 mysql.endWeek()
