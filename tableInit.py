@@ -22,6 +22,7 @@ while another=="yes":
     tag = ''
     print "tag is %s" % tag
     while len(tag) == 0:
+        tag = ''
         tag = ser.read(12)
         print "read"
     tag = tag[1:11]
