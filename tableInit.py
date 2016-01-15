@@ -22,6 +22,7 @@ while another=="yes":
     tag = ""
     while len(tag) == 0:
         tag = ser.read(10)
+    strip(tag)
     print tag
     data = (tag, first, last)
     cur.execute(insert_statement, data)
