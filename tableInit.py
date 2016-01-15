@@ -25,6 +25,7 @@ while another=="yes":
         print "read"
     tag = tag[1:11]
     print tag
+    ser.read(12)
     data = (tag, first, last)
     cur.execute(insert_statement, data)
     db.commit()
