@@ -22,6 +22,7 @@ while another=="yes":
     tag = ''
     while len(tag) == 0:
         tag = ser.read(12)
+        print "read"
     tag = tag[1:11]
     print tag
     data = (tag, first, last)
