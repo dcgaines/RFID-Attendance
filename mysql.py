@@ -38,10 +38,10 @@ def getInOut(tagId):
     cur.execute(select_status,tagId)
     #1 is in, 0 is out
     inOut = cur.fetchone()
-    #inOut = inOut[0]
-    print inOut[0]
+    status = int(inOut[0])
+    print status
     db.close()
-    return inOut
+    return status
 
 def logIn(tagId):
     db = connect()
