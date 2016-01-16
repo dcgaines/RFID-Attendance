@@ -46,7 +46,7 @@ while True:
                 #if student is in log them out
                 print "Goodbye "+mysql.getName(string)
                 print "Logging Out..."
-                mysql.logout(string)
+                mysql.logOut(string)
                 print "Logged Out!"
             else:
                 #status will only ever be 0 or 1
