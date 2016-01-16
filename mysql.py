@@ -19,7 +19,7 @@ hours_this_week = "UPDATE hours SET hoursThisWeek = ADDTIME(hoursThisWeek, TIMED
 
 def connect():
     # Mysql connection setup. Insert your values here
-    return MySQLdb.connect(host="localhost", user="user", passwd="chickens", db="HOURS")
+    return MySQLdb.connect(host="localhost", user="root", passwd="obfuscate", db="HOURS")
 
 def getName(tagId):
     db = connect()
