@@ -11,9 +11,9 @@ import mysql
 
 day = raw_input("What day is today? ")
 
+string = ''
 
-
-ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=1)
+ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=2)
 while True:
     #continuously loops scanning for a card until it receives a value
     string = ser.read(12)
