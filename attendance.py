@@ -27,7 +27,7 @@ while True:
         continue
     else:
         #tagId of master card used to log all out.
-        if string == '0F03040D6F':
+        if string in('8800295F4D', '88002AC92D', '88002AC3D9', '0F03040D6F'):
             print "Logging all out"
             if day.lower() == "saturday":
                 mysql.endWeek()
@@ -45,7 +45,7 @@ while True:
                 mysql.logIn(string)
                 print "Logged In!"
                 print "\n\nPlease Wait..."
-                time.sleep(10)
+                time.sleep(7)
                 os.system('clear')
                 print "Please wait..."
                 while len(string) != 0:
@@ -60,7 +60,7 @@ while True:
                 mysql.logOut(string)
                 print "Logged Out!"
                 print "\n\nPlease Wait..."
-                time.sleep(10)
+                time.sleep(7)
                 os.system('clear')
                 print "Please wait..."
                 while len(string) != 0:
