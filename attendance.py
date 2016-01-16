@@ -13,7 +13,13 @@ import os
 
 day = raw_input("What day is today? ")
 if day.lower() == "saturday":
-    week = raw_input("What week number (spelled out)?")
+    while True:
+        week = raw_input("What week number (spelled out)?")
+        if week in('one', 'two', 'three', 'four', 'five', 'six')
+            break;
+        else:
+            print "Error in week number"
+            
 print "Please scan your card..."
 string = ''
 
@@ -32,7 +38,7 @@ while True:
         if string in('8800295F4D', '88002AC92D', '88002AC3D9', '0F03040D6F'):
             print "Logging all out"
             if day.lower() == "saturday":
-                mysql.endWeek(week)
+                mysql.endWeek(week.lower())
             else:
                 mysql.logAllOut()
                 break
