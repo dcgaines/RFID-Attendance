@@ -86,7 +86,7 @@ def logAllOut():
     db.close()
     print ("All logged out. Have a good night!")
     
-def endWeek():
+def endWeek(week):
     db = connect()
     cur = db.cursor()
     cur.execute("UPDATE hours SET timeOut = NOW() WHERE status = 1")
@@ -97,7 +97,7 @@ def endWeek():
     db.commit()
     cur.execute("UPDATE hours SET status = 0 WHERE status = 1")
     db.commit()
-    cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/hoursDump.txt'")
+    cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/week%s.txt'", week)
     cur.execute("UPDATE hours SET hoursThisWeek = 0")
     db.commit()
     cur.execute("UPDATE hours SET hoursToday = 0")
