@@ -9,6 +9,7 @@
 import serial
 import mysql
 import time
+import os
 
 day = raw_input("What day is today? ")
 print "Please scan your card..."
@@ -24,7 +25,7 @@ while True:
     string = string[1:11]
     
     if len(string) == 0:
-        print "Please scan your card..."
+        #print "Please scan your card..."
         continue
     else:
         #tagId of master card used to log all out.
@@ -46,6 +47,8 @@ while True:
                 mysql.logIn(string)
                 print "Logged In!"
                 time.sleep(5)
+                os.system('clear')
+                print "Please scan your card..."
                 
             elif status == 1:
                 #if student is in log them out
@@ -54,6 +57,8 @@ while True:
                 mysql.logOut(string)
                 print "Logged Out!"
                 time.sleep(5)
+                os.system('clear')
+                print "Please scan your card..."
             else:
                 #status will only ever be 0 or 1
                 print "Something went wrong blame mechanical"

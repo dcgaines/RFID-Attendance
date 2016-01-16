@@ -39,7 +39,6 @@ def getInOut(tagId):
     #1 is in, 0 is out
     inOut = cur.fetchone()
     status = int(inOut[0])
-    print status
     db.close()
     return status
 
