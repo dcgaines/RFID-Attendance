@@ -17,7 +17,7 @@ string = ''
 ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=15)
 while True:
     #continuously loops scanning for a card until it receives a value
-    ser.read(12)
+    string = ser.read(12)
     string = ''
     string = ser.read(12)
     string = string[1:11]
@@ -56,11 +56,3 @@ while True:
             else:
                 #status will only ever be 0 or 1
                 print "Something went wrong blame mechanical"
-
-        #test code
-#        if string == '0415DB18A3':
-#            print "You used your black tag"
-#        elif string == '0F03028F57':
-#            print "You used your white tag"
-#        else:
-#            print "You do not have a valid tag"
