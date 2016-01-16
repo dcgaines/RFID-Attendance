@@ -11,13 +11,14 @@ import mysql
 import time
 
 day = raw_input("What day is today? ")
-
+print "Please scan your card..."
 string = ''
 
 ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=15)
 while True:
     #continuously loops scanning for a card until it receives a value
     ser.read(12)
+    string = ''
     string = ser.read(12)
     string = string[1:11]
     
