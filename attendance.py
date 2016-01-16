@@ -23,13 +23,10 @@ while True:
         print "Please scan your card..."
         continue
     else:
-        #Interface with mysql server - reference Attendance.py and mysql.py for
-        #proper interface syntax
-
         #tagId of master card used to log all out.
         if string == '0F03040D6F':
             print "Logging all out"
-            if day == "Saturday" || day == "saturday":
+            if day.lower() == "saturday":
                 mysql.endWeek()
             else
                 mysql.logAllOut()
