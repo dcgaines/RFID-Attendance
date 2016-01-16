@@ -8,14 +8,16 @@
 
 import serial
 import mysql
+import time
 
 day = raw_input("What day is today? ")
 
 string = ''
 
-ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=2)
+ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=15)
 while True:
     #continuously loops scanning for a card until it receives a value
+    ser.read(12)
     string = ser.read(12)
     string = string[1:11]
     
@@ -41,6 +43,7 @@ while True:
                 print "Logging In..."
                 mysql.logIn(string)
                 print "Logged In!"
+                time.sleep(5)
                 
             elif status == 1:
                 #if student is in log them out
@@ -48,6 +51,7 @@ while True:
                 print "Logging Out..."
                 mysql.logOut(string)
                 print "Logged Out!"
+                time.sleep(5)
             else:
                 #status will only ever be 0 or 1
                 print "Something went wrong blame mechanical"
