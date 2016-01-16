@@ -44,7 +44,8 @@ while True:
                 print "Logging In..."
                 mysql.logIn(string)
                 print "Logged In!"
-                time.sleep(5)
+                print "\n\nPlease Wait..."
+                time.sleep(10)
                 os.system('clear')
                 print "Please wait..."
                 while len(string) != 0:
@@ -58,7 +59,8 @@ while True:
                 print "Logging Out..."
                 mysql.logOut(string)
                 print "Logged Out!"
-                time.sleep(5)
+                print "\n\nPlease Wait..."
+                time.sleep(10)
                 os.system('clear')
                 print "Please wait..."
                 while len(string) != 0:
