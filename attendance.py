@@ -15,11 +15,9 @@ day = raw_input("What day is today? ")
 print "Please scan your card..."
 string = ''
 
-ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=15)
+ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=1)
 while True:
     #continuously loops scanning for a card until it receives a value
-    while len(string) != 0:
-        string = ser.read(12)
     #string = ''
     string = ser.read(12)
     string = string[1:11]
@@ -48,6 +46,10 @@ while True:
                 print "Logged In!"
                 time.sleep(5)
                 os.system('clear')
+                print "Please wait..."
+                while len(string) != 0:
+                    string = ser.read(12)
+                os.system('clear')
                 print "Please scan your card..."
                 
             elif status == 1:
@@ -57,6 +59,10 @@ while True:
                 mysql.logOut(string)
                 print "Logged Out!"
                 time.sleep(5)
+                os.system('clear')
+                print "Please wait..."
+                while len(string) != 0:
+                    string = ser.read(12)
                 os.system('clear')
                 print "Please scan your card..."
             else:
