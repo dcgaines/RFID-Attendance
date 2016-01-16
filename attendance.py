@@ -17,8 +17,9 @@ string = ''
 ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=15)
 while True:
     #continuously loops scanning for a card until it receives a value
-    string = ser.read(12)
-    string = ''
+    while len(string) != 0:
+        string = ser.read(12)
+    #string = ''
     string = ser.read(12)
     string = string[1:11]
     
