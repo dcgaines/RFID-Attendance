@@ -52,7 +52,7 @@ def logIn(tagId):
     cur.execute(select_hours,tagId)
     hrs = cur.fetchone()
     db.close()
-    print "You have %s today and %s this week.",(hrs[0], hrs[1])
+    print "You have %s today and %s this week." % (hrs[0], hrs[1])
 
 def logOut(tagId):
     db = connect()
@@ -68,7 +68,7 @@ def logOut(tagId):
     cur.execute(select_hours,tagId)
     hrs = cur.fetchone()
     db.close()
-    print "You have %s today and %s this week.",(hrs[0], hrs[1]) 
+    print "You have %s today and %s this week." % (hrs[0], hrs[1]) 
 
 def logAllOut():
     db = connect()
