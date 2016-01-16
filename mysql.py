@@ -107,7 +107,7 @@ def endWeek(week):
         cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekFour.txt'")
     elif week == "five":
         cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekFive.txt'")
-    elif week == "six:
+    elif week == "six":
         cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekSix.txt'")
     else:
         print "Uh oh"
