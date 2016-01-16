@@ -39,7 +39,7 @@ while True:
                 #if student is out, log them in
                 print "Hello "+mysql.getName(string)
                 print "Logging In..."
-                mysql.login(string)
+                mysql.logIn(string)
                 print "Logged In!"
                 
             elif status == 1:
