@@ -97,7 +97,7 @@ def endWeek():
     db.commit()
     cur.execute("UPDATE hours SET status = 0 WHERE status = 1")
     db.commit()
-    cur.execute("SELECT * FROM hours INTO OUTFILE '/home/pi/Desktop/hoursDump.txt'")
+    cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/hoursDump.txt'")
     cur.execute("UPDATE hours SET hoursThisWeek = 0")
     db.commit()
     cur.execute("UPDATE hours SET hoursToday = 0")
