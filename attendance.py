@@ -28,7 +28,7 @@ while True:
             print "Logging all out"
             if day.lower() == "saturday":
                 mysql.endWeek()
-            else
+            else:
                 mysql.logAllOut()
                 break
         else:
