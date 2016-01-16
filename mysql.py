@@ -38,7 +38,7 @@ def getInOut(tagId):
     cur.execute(select_status,tagId)
     #1 is in, 0 is out
     inOut = cur.fetchone()
-    inOut = inOut[1:2]
+    inOut = inOut[0:1]
     print inOut
     db.close()
     return inOut
