@@ -48,7 +48,7 @@ def logIn(tagId):
     cur = db.cursor()
     cur.execute(log_in_status,tagId)
     db.commit()
-    cur.exucute(log_in_time,tagId)
+    cur.execute(log_in_time,tagId)
     db.commit()
     cur.execute(select_hours,tagId)
     hrs = cur.fetchone()
