@@ -120,21 +120,21 @@ def endWeek(week):
     print ("All logged out. Hours saved. Have a good night!")
 
 def viewAll():
-    db.connect()
+    db = connect()
     cur = db.cursor()
     cur.execute("SELECT * FROM hours")
     print cur.fetchall()
     db.close()
 
 def viewIn():
-    db.connect()
+    db = connect()
     cur = db.cursor()
     cur.execute("SELECT * FROM hours WHERE status = 1")
     print cur.fetchall()
     db.close()
 
 def viewOut():
-    db.connect()
+    db = connect()
     cur = db.cursor()
     cur.execute("SElECT * FROM hours WHERE status = 0")
     print cur.fetchall()

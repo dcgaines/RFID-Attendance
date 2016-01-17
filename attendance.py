@@ -12,11 +12,11 @@ import time
 import os
 
 menu = ("Please select an option from the list below:\n,"
-        "1. View all\n,"
-        "2. View logged in\n,"
-        "3. View logged out\n,"
-        "4. Manual Login/out\n,"
-        "5. Log all out\n,"
+        "1. View all\n"
+        "2. View logged in\n"
+        "3. View logged out\n"
+        "4. Manual Login/out\n"
+        "5. Log all out\n"
         "6. Cancel\n\n")
 
 day = raw_input("What day is today? ")
