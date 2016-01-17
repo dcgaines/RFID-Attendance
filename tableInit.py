@@ -19,13 +19,10 @@ insert_statement = "INSERT INTO hours (tagId, first, last, status, hoursToday, h
 while another=="yes":
     first = raw_input("First name: ")
     last = raw_input("Last name: ")
-    tag = ''
-    print "tag is %s" % tag
+    while len(tag != 0):
+        tag = ser.read(12)
     while len(tag) == 0:
         tag = ser.read(12)
-        tag = ''
-        tag = ser.read(12)
-        print "read"
     tag = tag[1:11]
     print tag
     ser.read(12)
