@@ -11,6 +11,14 @@ import mysql
 import time
 import os
 
+menu = ("Please select an option from the list below:\n,"
+        "1. View all\n,"
+        "2. View logged in\n,"
+        "3. View logged out\n,"
+        "4. Manual Login/out\n,"
+        "5. Log all out\n,"
+        "6. Cancel\n\n")
+
 day = raw_input("What day is today? ")
 if day.lower() == "saturday":
     while True:
@@ -36,12 +44,43 @@ while True:
     else:
         #tagId of master card used to log all out.
         if string in('8800295F4D', '88002AC92D', '88002AC3D9', '0F03040D6F'):
-            print "Logging all out"
-            if day.lower() == "saturday":
-                mysql.endWeek(week.lower())
+            os.system('clear')
+            while True:
+                try:
+                    choice = int(raw_input(menu))
+                    if choice in (1,2,3,4,5,6):
+                        break
+                    else:
+                        print "Invalid input, please enter an integer from 1-6."
+                except ValueError:
+                    print "Invalid input, please enter an integer from 1-6."
+
+            os.system('clear')
+
+            if choice == 1:
+                mysql.viewAll()
+                temp = raw_input("Press enter to continue")
+            elif choice == 2:
+                mysql.viewIn()
+                temp = raw_input("Press enter to continue")
+            elif choice == 3:
+                mysql.viewOut()
+                temp = raw_input("Press enter to continue")
+            elif choice == 4:
+                print "Manual Log\n\n"
+                first = raw_input("First name: ")
+                last = raw_input("Last name: ")
+                mysql.manualLog(first,last)
+                temp = raw_input("Press enter to continue")
+            elif choice == 5:
+                if day.lower() == "saturday":
+                    mysql.endWeek(week.lower())
+                else:
+                    mysql.logAllOut()
+                    break
             else:
-                mysql.logAllOut()
-                break
+                
+            
         else:
             #checks if student is currently logged in or out
             status = mysql.getInOut(string)

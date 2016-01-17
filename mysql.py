@@ -16,6 +16,7 @@ log_out_status = "UPDATE hours SET status = 0 WHERE tagId = %s"
 log_out_time = "UPDATE hours SET timeOut = NOW() WHERE tagId = %s"
 hours_today = "UPDATE hours SET hoursToday = ADDTIME(hoursToday, TIMEDIFF(timeOut, timeIn)) WHERE tagId = %s"
 hours_this_week = "UPDATE hours SET hoursThisWeek = ADDTIME(hoursThisWeek, TIMEDIFF(timeOut, timeIn)) WHERE tagId = %s"
+manual_log = "SELECT tagId FROM hours WHERE last = %s and first = %s"
 
 def connect():
     # Mysql connection setup. Insert your values here
@@ -117,3 +118,38 @@ def endWeek(week):
     db.commit()
     db.close()
     print ("All logged out. Hours saved. Have a good night!")
+
+def viewAll():
+    db.connect()
+    cur = db.cursor()
+    cur.execute("SELECT * FROM hours")
+    print cur.fetchall()
+    db.close()
+
+def viewIn():
+    db.connect()
+    cur = db.cursor()
+    cur.execute("SELECT * FROM hours WHERE status = 1")
+    print cur.fetchall()
+    db.close()
+
+def viewOut():
+    db.connect()
+    cur = db.cursor()
+    cur.execute("SElECT * FROM hours WHERE status = 0")
+    print cur.fetchall()
+    db.close()
+    
+def manualLog(f,l):
+    db = connect()
+    cur = db.cursor()
+    name = (l,f)
+    cur.execute(manual_log,name)
+    tagId = cur.fetchone()
+    status = getInOut(tagId)
+    if status == 0:
+        logIn(tagId)
+    else:
+        logOut(tagId)
+    print "Bring your card next time!"
+    db.close()
