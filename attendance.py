@@ -22,8 +22,8 @@ menu = ("Please select an option from the list below:\n"
 day = raw_input("What day is today? ")
 if day.lower() == "saturday":
     while True:
-        week = raw_input("What week number (spelled out)?")
-        if week in('one', 'two', 'three', 'four', 'five', 'six'):
+        week = int(raw_input("What week number? "))
+        if week in(1,2,3,4,5,6):
             break;
         else:
             print "Error in week number"
