@@ -12,6 +12,7 @@ import serial
 db = MySQLdb.connect(host="localhost", user="user", passwd="chickens", db="HOURS")
 cur = db.cursor()
 another = "yes"
+tag = ''
 ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=1)
 delete_statement = "DELETE FROM hours WHERE tagId = %s"
 insert_statement = "INSERT INTO hours (tagId, first, last, status, hoursToday, hoursThisWeek) VALUES (%s, %s, %s, 0, 0, 0)"
