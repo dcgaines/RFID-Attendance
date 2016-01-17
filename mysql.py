@@ -125,10 +125,9 @@ def viewAll():
     cur.execute("SELECT * FROM hours")
     rows = cur.fetchall()
     desc = cur.description
-    print "%s %s %s %s %s %s %s %s" % (desc[0][0],desc[1][0],desc[2][0],desc[3][0],desc[4][0],desc[5][0],desc[6][0],desc[7][0])
+    print "%s\t%s\t\t%s\t\t%s\t%s\t%s\t%s\t%s" % (desc[0][0],desc[1][0],desc[2][0],desc[3][0],desc[4][0],desc[5][0],desc[6][0],desc[7][0])
     for row in rows:
-        for col in row:
-            print col
+        print "%s\t%s\t\t%s\t\t%s\t%s\t%s\t%s\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
     db.close()
 
 def viewIn():
