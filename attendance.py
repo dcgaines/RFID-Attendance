@@ -11,7 +11,7 @@ import mysql
 import time
 import os
 
-menu = ("Please select an option from the list below:\n,"
+menu = ("Please select an option from the list below:\n"
         "1. View all\n"
         "2. View logged in\n"
         "3. View logged out\n"
