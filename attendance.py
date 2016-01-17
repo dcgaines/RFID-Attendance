@@ -73,7 +73,8 @@ while True:
                 temp = raw_input("Press enter to continue")
             elif choice == 5:
                 if day.lower() == "saturday":
-                    mysql.endWeek(week.lower())
+                    mysql.endWeek(week)
+                    break
                 else:
                     mysql.logAllOut()
                     break
