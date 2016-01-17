@@ -149,7 +149,9 @@ def manualLog(f,l):
     status = getInOut(tagId)
     if status == 0:
         logIn(tagId)
+        print "Logged In\n"
     else:
         logOut(tagId)
+        print "Logged Out\n"
     print "Bring your card next time!"
     db.close()

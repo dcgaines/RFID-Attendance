@@ -27,7 +27,7 @@ if day.lower() == "saturday":
             break;
         else:
             print "Error in week number"
-            
+os.system('clear')            
 print "Please scan your card..."
 string = ''
 
@@ -39,7 +39,6 @@ while True:
     string = string[1:11]
     
     if len(string) == 0:
-        #print "Please scan your card..."
         continue
     else:
         #tagId of master card used to log all out.
@@ -80,6 +79,13 @@ while True:
                     break
             else:
                 os.system('clear')
+            os.system('clear')
+            print "Please wait..."
+            while len(string) != 0:
+            string = ser.read(12)
+            os.system('clear')
+            print "Please scan your card..."
+
                 
             
         else:
