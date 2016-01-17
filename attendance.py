@@ -82,7 +82,7 @@ while True:
             os.system('clear')
             print "Please wait..."
             while len(string) != 0:
-            string = ser.read(12)
+                string = ser.read(12)
             os.system('clear')
             print "Please scan your card..."
 
