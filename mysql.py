@@ -127,7 +127,7 @@ def viewAll():
     desc = cur.description
     print "%s %s %s %s %s %s %s %s" % (desc[0][0],desc[1][0],desc[2][0],desc[3][0],desc[4][0],desc[5][0],desc[6][0],desc[7][0],
     for row in rows:
-        print "%s" % row
+        print row
     db.close()
 
 def viewIn():
