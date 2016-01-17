@@ -123,7 +123,11 @@ def viewAll():
     db = connect()
     cur = db.cursor()
     cur.execute("SELECT * FROM hours")
-    print cur.fetchall()
+    data = cur.fetchall()
+    desc = cur.description
+    print "%s %s %s %s %s %s %s %s" % (desc[0][0],desc[1][0],desc[2][0],desc[3][0],desc[4][0],desc[5][0],desc[6][0],desc[7][0],
+    for row in data:
+        print "%s" % row
     db.close()
 
 def viewIn():
