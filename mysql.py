@@ -144,7 +144,7 @@ def viewAll():
                     print "%s\t%s\t\t%s\t\t%s\t%s\t%s\t%s\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
                 else:
                     print "%s\t%s\t\t%s\t%s\t%s\t%s\t%s\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-            else:
+             else:
                 if len(row[2]) <= 7:
                     print "%s\t%s\t%s\t\t%s\t%s\t%s\t%s\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
                 else:
