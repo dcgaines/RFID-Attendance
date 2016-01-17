@@ -79,6 +79,7 @@ while True:
                     mysql.logAllOut()
                     break
             else:
+                os.system('clear')
                 
             
         else:
