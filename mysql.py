@@ -122,57 +122,24 @@ def endWeek(week):
 def viewAll():
     db = connect()
     cur = db.cursor()
+    cur.execute("UPDATE hours SET hoursToday = ADDTIME(hoursToday, TIMEDIFF(NOW(), timeIn)) WHERE status = 1")
+    cur.execute("UPDATE hours SET hoursThisWeek = ADDTIME(hoursThisWeek, TIMEDIFF(NOW(), timeIn)) WHERE status = 1")
+    cur.execute("UPDATE hours SET timeIn = NOW() WHERE status = 1")
     cur.execute("SELECT * FROM hours")
     rows = cur.fetchall()
     desc = cur.description
-    print "%s\t\t%s\t\t%s\t\t%s\t%s\t\t\t%s\t\t\t%s\t%s\n" % (desc[0][0],desc[1][0],desc[2][0],desc[3][0],desc[4][0],desc[5][0],desc[6][0],desc[7][0])
+    print "%s\t\t%s\t\t%s\t\t%s\t%s\t%s\n" % (desc[0][0],desc[1][0],desc[2][0],desc[3][0],desc[6][0],desc[7][0])
     for row in rows:
-        if row[5] == None:
-            if row[4] == None:
-                if len(row[1]) <= 7:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t\t%s\t\t%s\t%s\t\t\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t\t%s\t%s\t%s\t\t\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-                else:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t%s\t\t%s\t%s\t\t\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t%s\t%s\t%s\t\t\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])        
+        if len(row[1]) <= 7:
+            if len(row[2]) <= 7:
+                print "%s\t%s\t\t%s\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[6],row[7]) 
             else:
-                if len(row[1]) <= 7:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t\t%s\t\t%s\t%s\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t\t%s\t%s\t%s\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-                else:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t%s\t\t%s\t%s\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t%s\t%s\t%s\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])        
+                print "%s\t%s\t\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[6],row[7])    
         else:
-            if row[4] == None:
-                if len(row[1]) <= 7:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t\t%s\t\t%s\t%s\t\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t\t%s\t%s\t%s\t\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-                else:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t%s\t\t%s\t%s\t\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t%s\t%s\t%s\t\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])        
+            if len(row[2]) <= 7:
+                print "%s\t%s\t%s\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[6],row[7]) 
             else:
-                 if len(row[1]) <= 7:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t\t%s\t\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t\t%s\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-                 else:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t%s\t\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t%s\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])        
+                print "%s\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[6],row[7])        
 
 
     db.close()
@@ -180,57 +147,24 @@ def viewAll():
 def viewIn():
     db = connect()
     cur = db.cursor()
+    cur.execute("UPDATE hours SET hoursToday = ADDTIME(hoursToday, TIMEDIFF(NOW(), timeIn)) WHERE status = 1")
+    cur.execute("UPDATE hours SET hoursThisWeek = ADDTIME(hoursThisWeek, TIMEDIFF(NOW(), timeIn)) WHERE status = 1")
+    cur.execute("UPDATE hours SET timeIn = NOW() WHERE status = 1")
     cur.execute("SELECT * FROM hours WHERE status = 1")
     rows = cur.fetchall()
     desc = cur.description
-    print "%s\t\t%s\t\t%s\t\t%s\t%s\t\t\t%s\t\t\t%s\t%s\n" % (desc[0][0],desc[1][0],desc[2][0],desc[3][0],desc[4][0],desc[5][0],desc[6][0],desc[7][0])
+    print "%s\t\t%s\t\t%s\t\t%s\t%s\t%s\n" % (desc[0][0],desc[1][0],desc[2][0],desc[3][0],desc[6][0],desc[7][0])
     for row in rows:
-        if row[5] == None:
-            if row[4] == None:
-                if len(row[1]) <= 7:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t\t%s\t\t%s\t%s\t\t\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t\t%s\t%s\t%s\t\t\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-                else:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t%s\t\t%s\t%s\t\t\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t%s\t%s\t%s\t\t\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])        
+        if len(row[1]) <= 7:
+            if len(row[2]) <= 7:
+                print "%s\t%s\t\t%s\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[6],row[7]) 
             else:
-                if len(row[1]) <= 7:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t\t%s\t\t%s\t%s\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t\t%s\t%s\t%s\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-                else:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t%s\t\t%s\t%s\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t%s\t%s\t%s\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])        
+                print "%s\t%s\t\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[6],row[7])    
         else:
-            if row[4] == None:
-                if len(row[1]) <= 7:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t\t%s\t\t%s\t%s\t\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t\t%s\t%s\t%s\t\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-                else:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t%s\t\t%s\t%s\t\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t%s\t%s\t%s\t\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])        
+            if len(row[2]) <= 7:
+                print "%s\t%s\t%s\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[6],row[7]) 
             else:
-                 if len(row[1]) <= 7:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t\t%s\t\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t\t%s\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-                 else:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t%s\t\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t%s\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])        
+                print "%s\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[6],row[7])        
 
 
     db.close()
@@ -241,55 +175,18 @@ def viewOut():
     cur.execute("SElECT * FROM hours WHERE status = 0")
     rows = cur.fetchall()
     desc = cur.description
-    print "%s\t\t%s\t\t%s\t\t%s\t%s\t\t\t%s\t\t\t%s\t%s\n" % (desc[0][0],desc[1][0],desc[2][0],desc[3][0],desc[4][0],desc[5][0],desc[6][0],desc[7][0])
+    print "%s\t\t%s\t\t%s\t\t%s\t%s\t%s\n" % (desc[0][0],desc[1][0],desc[2][0],desc[3][0],desc[6][0],desc[7][0])
     for row in rows:
-        if row[5] == None:
-            if row[4] == None:
-                if len(row[1]) <= 7:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t\t%s\t\t%s\t%s\t\t\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t\t%s\t%s\t%s\t\t\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-                else:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t%s\t\t%s\t%s\t\t\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t%s\t%s\t%s\t\t\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])        
+        if len(row[1]) <= 7:
+            if len(row[2]) <= 7:
+                print "%s\t%s\t\t%s\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[6],row[7]) 
             else:
-                if len(row[1]) <= 7:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t\t%s\t\t%s\t%s\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t\t%s\t%s\t%s\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-                else:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t%s\t\t%s\t%s\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t%s\t%s\t%s\t%s\t\t\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])        
+                print "%s\t%s\t\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[6],row[7])    
         else:
-            if row[4] == None:
-                if len(row[1]) <= 7:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t\t%s\t\t%s\t%s\t\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t\t%s\t%s\t%s\t\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-                else:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t%s\t\t%s\t%s\t\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t%s\t%s\t%s\t\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])        
+            if len(row[2]) <= 7:
+                print "%s\t%s\t%s\t\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[6],row[7]) 
             else:
-                 if len(row[1]) <= 7:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t\t%s\t\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t\t%s\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])    
-                 else:
-                    if len(row[2]) <= 7:
-                        print "%s\t%s\t%s\t\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) 
-                    else:
-                        print "%s\t%s\t%s\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])        
-
+                print "%s\t%s\t%s\t%s\t%s\t\t%s" % (row[0],row[1],row[2],row[3],row[6],row[7])        
 
     db.close()
     
