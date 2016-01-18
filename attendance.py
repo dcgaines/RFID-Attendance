@@ -105,8 +105,10 @@ while True:
             print "Please scan your card..."
         else:
             #checks if student is currently logged in or out
-            status = mysql.getInOut(string)
-
+            try:
+                status = mysql.getInOut(string)
+            except Exception:
+                continue
             if status == 0:
                 #if student is out, log them in
                 print "Hello "+mysql.getName(string)
