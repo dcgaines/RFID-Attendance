@@ -92,10 +92,15 @@ while True:
             os.system('clear')
             print "Please scan your card..."
 
-                
+        #card to view all hours    
         elif string == '88002A5CBD':
+            os.system('clear')
             mysql.viewAll()
             temp = raw_input("\nPress Enter to continue.")
+            os.system('clear')
+            print "Please wait..."
+            while len(string) != 0:
+                string = ser.read(12)
             os.system('clear')
             print "Please scan your card..."
         else:
