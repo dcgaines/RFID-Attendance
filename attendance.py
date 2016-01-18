@@ -58,13 +58,13 @@ while True:
 
             if choice == 1:
                 mysql.viewAll()
-                temp = raw_input("Press enter to continue")
+                temp = raw_input("\nPress enter to continue")
             elif choice == 2:
                 mysql.viewIn()
-                temp = raw_input("Press enter to continue")
+                temp = raw_input("\nPress enter to continue")
             elif choice == 3:
                 mysql.viewOut()
-                temp = raw_input("Press enter to continue")
+                temp = raw_input("\nPress enter to continue")
             elif choice == 4:
                 print "Manual Log\n\n"
                 while True:
@@ -93,7 +93,11 @@ while True:
             print "Please scan your card..."
 
                 
-            
+        elif string == '88002A5CBD':
+            mysql.viewAll()
+            temp = raw_input("\nPress Enter to continue.")
+            os.system('clear')
+            print "Please scan your card..."
         else:
             #checks if student is currently logged in or out
             status = mysql.getInOut(string)
