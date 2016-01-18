@@ -73,7 +73,7 @@ while True:
                         last = raw_input("Last name: ")
                         mysql.manualLog(first,last)
                         break
-                    except ValueError:
+                    except Exception:
                         print "That is not a valid name"
                 temp = raw_input("Press enter to continue")
             elif choice == 5:
