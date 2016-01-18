@@ -67,9 +67,14 @@ while True:
                 temp = raw_input("Press enter to continue")
             elif choice == 4:
                 print "Manual Log\n\n"
-                first = raw_input("First name: ")
-                last = raw_input("Last name: ")
-                mysql.manualLog(first,last)
+                while True:
+                    try:
+                        first = raw_input("First name: ")
+                        last = raw_input("Last name: ")
+                        mysql.manualLog(first,last)
+                        break
+                    except ValueError:
+                        print "That is not a valid name"
                 temp = raw_input("Press enter to continue")
             elif choice == 5:
                 if day.lower() == "saturday":
