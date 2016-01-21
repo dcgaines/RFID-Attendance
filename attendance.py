@@ -42,7 +42,7 @@ while True:
         continue
     else:
         #tagId of master card used to log all out.
-        if string in('8800295F4D', '88002AC92D', '88002AC3D9', '0F03040D6F'):
+        if string in('8800295F4D', '88002AC92D', '88002AC3D9', '0F03040D6F', '88002BDE26'):
             os.system('clear')
             while True:
                 try:
