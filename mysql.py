@@ -125,6 +125,7 @@ def viewAll():
     cur.execute("UPDATE hours SET hoursToday = ADDTIME(hoursToday, TIMEDIFF(NOW(), timeIn)) WHERE status = 1")
     cur.execute("UPDATE hours SET hoursThisWeek = ADDTIME(hoursThisWeek, TIMEDIFF(NOW(), timeIn)) WHERE status = 1")
     cur.execute("UPDATE hours SET timeIn = NOW() WHERE status = 1")
+    db.commit()
     cur.execute("SELECT * FROM hours")
     rows = cur.fetchall()
     desc = cur.description
