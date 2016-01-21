@@ -99,17 +99,17 @@ def endWeek(week):
     cur.execute("UPDATE hours SET status = 0 WHERE status = 1")
     db.commit()
     if week == 1:        
-        cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekOne.txt'")
+        cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekOne.csv'")
     elif week == 2:
-        cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekTwo.txt'")
+        cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekTwo.csv'")
     elif week == 3:
-        cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekThree.txt'")
+        cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekThree.csv'")
     elif week == 4:
-        cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekFour.txt'")
+        cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekFour.csv'")
     elif week == 5:
-        cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekFive.txt'")
+        cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekFive.csv'")
     elif week == 6:
-        cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekSix.txt'")
+        cur.execute("SELECT * FROM hours INTO OUTFILE '/tmp/weekSix.csv'")
     else:
         print "Uh oh"
     cur.execute("UPDATE hours SET hoursThisWeek = 0")
