@@ -17,7 +17,8 @@ menu = ("Please select an option from the list below:\n"
         "3. View logged out\n"
         "4. Manual Login/out\n"
         "5. Log all out\n"
-        "6. Cancel\n\n")
+        "6. Reset Bus Mode\n"
+        "7. Cancel\n\n")
 
 os.system('clear')            
 print "Please scan your card..."
@@ -39,7 +40,7 @@ while True:
             while True:
                 try:
                     choice = int(raw_input(menu))
-                    if choice in (1,2,3,4,5,6):
+                    if choice in (1,2,3,4,5,6,7):
                         break
                     else:
                         print "Invalid input, please enter an integer from 1-6."
@@ -82,6 +83,8 @@ while True:
                 else:
                     mysql.logAllOut()
                     break
+            elif choice == 6:
+                mysql.busReset()
             else:
                 os.system('clear')
             os.system('clear')
@@ -102,6 +105,30 @@ while True:
                 string = ser.read(12)
             os.system('clear')
             print "Please scan your card..."
+            
+        #Card for bus mode
+        elif string == '88002BE876':
+            while True:
+                os.system('clear')
+                mysql.busMode()
+                print "Please wait..."
+                while len(string) != 0:
+                    string = ser.read(12)
+                os.system('clear')
+                print "\nPlease scan your card..."
+                while True:
+                    string = ser.read(12)
+                    string = string[1:11]
+    
+                    if len(string) == 0:
+                        continue
+                    elif string = '88002BE876':
+                        break
+                    else:
+                        mysql.busIn(string)
+            break
+                    
+            
         else:
             #checks if student is currently logged in or out
             try:

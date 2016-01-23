@@ -17,6 +17,7 @@ log_out_time = "UPDATE hours SET timeOut = NOW() WHERE tagId = %s"
 hours_today = "UPDATE hours SET hoursToday = ADDTIME(hoursToday, TIMEDIFF(timeOut, timeIn)) WHERE tagId = %s"
 hours_this_week = "UPDATE hours SET hoursThisWeek = ADDTIME(hoursThisWeek, TIMEDIFF(timeOut, timeIn)) WHERE tagId = %s"
 manual_log = "SELECT tagId FROM hours WHERE last = %s and first = %s"
+busLogIn = "UPDATE HOURS SET status = 1 WHERE tagId = %s"
 
 def connect():
     # Mysql connection setup. Insert your values here
@@ -205,4 +206,42 @@ def manualLog(f,l):
         logOut(tagId)
         print "Logged Out\n"
     print "Bring your card next time!"
+    db.close()
+
+def busMode():
+    db = connect()
+    cur = db.cursor()
+    print "Present"
+    cur.execute("SELECT * FROM hours WHERE status = 1")
+    rows = cur.fetchall()
+    desc = cur.description
+    print "%s\t\t%s\n" % (desc[1][0],desc[2][0])
+    for row in rows:
+        if len(row[1]) <= 7:
+            print "%s\t\t%s" % (row[1],row[2])
+        else:
+            print "%s\t%s" % (row[1],row[2])
+
+    print "\nMissing"
+    cur.execute("SELECT * FROM hours WHERE status = 0")
+    rows = cur.fetchall()
+    desc = cur.description
+    print "%s\t\t%s\n" % (desc[1][0],desc[2][0])
+    for row in rows:
+        if len(row[1]) <= 7:
+            print "%s\t\t%s" % (row[1],row[2])
+        else:
+            print "%s\t%s" % (row[1],row[2])
+    db.close()
+
+def busIn(tagId):
+    db = connect()
+    cur = db.cursor()
+    cur.execute(busLogIn, tagId)                
+    db.close()
+    
+def busReset():
+    db = connect()
+    cur = db.cursor()
+    cur.execute("UPDATE hours SET status = 0")
     db.close()
