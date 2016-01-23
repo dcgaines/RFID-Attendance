@@ -19,14 +19,6 @@ menu = ("Please select an option from the list below:\n"
         "5. Log all out\n"
         "6. Cancel\n\n")
 
-day = raw_input("What day is today? ")
-if day.lower() == "saturday":
-    while True:
-        week = int(raw_input("What week number? "))
-        if week in(1,2,3,4,5,6):
-            break;
-        else:
-            print "Error in week number"
 os.system('clear')            
 print "Please scan your card..."
 string = ''
@@ -77,7 +69,14 @@ while True:
                         print "That is not a valid name"
                 temp = raw_input("Press enter to continue")
             elif choice == 5:
+                day = raw_input("What day is today? ")
                 if day.lower() == "saturday":
+                    while True:
+                        week = int(raw_input("What week number? "))
+                        if week in(1,2,3,4,5,6):
+                            break
+                        else:
+                            print "Error in week number"
                     mysql.endWeek(week)
                     break
                 else:
@@ -116,7 +115,7 @@ while True:
                 mysql.logIn(string)
                 print "Logged In!"
                 print "\n\nPlease Wait..."
-                time.sleep(7)
+                time.sleep(5)
                 os.system('clear')
                 print "Please wait..."
                 while len(string) != 0:
@@ -131,7 +130,7 @@ while True:
                 mysql.logOut(string)
                 print "Logged Out!"
                 print "\n\nPlease Wait..."
-                time.sleep(7)
+                time.sleep(5)
                 os.system('clear')
                 print "Please wait..."
                 while len(string) != 0:
