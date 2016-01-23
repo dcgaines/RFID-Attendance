@@ -245,3 +245,9 @@ def busReset():
     cur = db.cursor()
     cur.execute("UPDATE hours SET status = 0")
     db.close()
+
+def busNotPresent():
+    db = connect()
+    cur = db.cursor()
+    cur.execute("UPDATE hours SET status = -1 WHERE STATUS = 0")
+    db.close()

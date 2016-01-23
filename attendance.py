@@ -122,7 +122,10 @@ while True:
     
                     if len(string) == 0:
                         continue
+                    #Bus card again sets all missing to not present for
+                    #this competition (status = -1) and ends script
                     elif string = '88002BE876':
+                        mysql.busNotPresent()
                         break
                     else:
                         mysql.busIn(string)
@@ -135,7 +138,17 @@ while True:
                 status = mysql.getInOut(string)
             except Exception:
                 continue
-            if status == 0:
+            if status == -1:
+                print "Tell Cameron to reset bus mode"
+                time.sleep(5)
+                os.system('clear')
+                print "Please wait..."
+                while len(string) != 0:
+                    string = ser.read(12)
+                os.system('clear')
+                print "Please scan your card..."
+                
+            elif status == 0:
                 #if student is out, log them in
                 print "Hello "+mysql.getName(string)
                 print "Logging In..."
