@@ -243,11 +243,11 @@ def busIn(tagId):
 def busReset():
     db = connect()
     cur = db.cursor()
-    cur.execute("UPDATE hours SET status = 0")
+    cur.execute("UPDATE hours SET status = 0 WHERE status = -1")
     db.close()
 
 def busNotPresent():
     db = connect()
     cur = db.cursor()
-    cur.execute("UPDATE hours SET status = -1 WHERE STATUS = 0")
+    cur.execute("UPDATE hours SET status = -1 WHERE status = 0")
     db.close()
