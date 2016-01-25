@@ -9,7 +9,7 @@
 import MySQLdb
 import serial
 
-db = MySQLdb.connect(host="localhost", user="user", passwd="chickens", db="HOURS")
+db = MySQLdb.connect(host="localhost", user="root", passwd="obfuscate", db="HOURS")
 cur = db.cursor()
 another = "yes"
 tag = ''

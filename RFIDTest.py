@@ -3,9 +3,8 @@
 import serial
 ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=1)
 
-print "yes hello"
-print "this is a test of print"
-print "might need a main def"
+print "hello"
+print "this is a test of the print function"
 
 while True:
     string = ser.read(12)
