@@ -124,7 +124,7 @@ while True:
                         continue
                     #Bus card again sets all missing to not present for
                     #this competition (status = -1) and ends script
-                    elif string = '88002BE876':
+                    elif string == '88002BE876':
                         mysql.busNotPresent()
                         break
                     else:
