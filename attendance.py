@@ -114,7 +114,6 @@ while True:
                 print "Please wait..."
                 while len(string) != 0:
                     string = ser.read(12)
-                os.system('clear')
                 print "\nPlease scan your card..."
                 while True:
                     string = ser.read(12)
