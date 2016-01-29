@@ -43,9 +43,9 @@ while True:
                     if choice in (1,2,3,4,5,6,7):
                         break
                     else:
-                        print "Invalid input, please enter an integer from 1-6."
+                        print "Invalid input, please enter an integer from 1-7."
                 except ValueError:
-                    print "Invalid input, please enter an integer from 1-6."
+                    print "Invalid input, please enter an integer from 1-7."
 
             os.system('clear')
 
