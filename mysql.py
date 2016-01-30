@@ -17,7 +17,7 @@ log_out_time = "UPDATE hours SET timeOut = NOW() WHERE tagId = %s"
 hours_today = "UPDATE hours SET hoursToday = ADDTIME(hoursToday, TIMEDIFF(timeOut, timeIn)) WHERE tagId = %s"
 hours_this_week = "UPDATE hours SET hoursThisWeek = ADDTIME(hoursThisWeek, TIMEDIFF(timeOut, timeIn)) WHERE tagId = %s"
 manual_log = "SELECT tagId FROM hours WHERE last = %s and first = %s"
-busLogIn = "UPDATE HOURS SET status = 1 WHERE tagId = %s"
+busLogIn = "UPDATE hours SET status = 1 WHERE tagId = %s"
 
 def connect():
     # Mysql connection setup. Insert your values here
