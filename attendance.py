@@ -166,16 +166,18 @@ while True:
                 #if student is in log them out
                 print "Goodbye "+mysql.getName(string)
                 print "Logging Out..."
-                mysql.logOut(string)
-                print "Logged Out!"
-                print "\n\nPlease Wait..."
+                if mysql.logOut(string) == 1:
+                    print "Logged Out!"
+                    print "\n\nPlease Wait..."
+                else:
+                    print "Error talk to Dylan"
                 time.sleep(5)
                 os.system('clear')
                 print "Please wait..."
                 while len(string) != 0:
-                    string = ser.read(12)
+                        string = ser.read(12)
                 os.system('clear')
                 print "Please scan your card..."
             else:
-                #status will only ever be 0 or 1
+                #status will only ever be 0 or 1 or -1
                 print "Something went wrong blame mechanical"

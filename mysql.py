@@ -18,6 +18,7 @@ hours_today = "UPDATE hours SET hoursToday = ADDTIME(hoursToday, TIMEDIFF(timeOu
 hours_this_week = "UPDATE hours SET hoursThisWeek = ADDTIME(hoursThisWeek, TIMEDIFF(timeOut, timeIn)) WHERE tagId = %s"
 manual_log = "SELECT tagId FROM hours WHERE last = %s and first = %s"
 busLogIn = "UPDATE hours SET status = 1 WHERE tagId = %s"
+select_session = "SELECT TIMEDIFF(timeOut,timeIn) FROM hours WHERE tagId = %s"
 
 def connect():
     # Mysql connection setup. Insert your values here
@@ -59,6 +60,11 @@ def logIn(tagId):
 def logOut(tagId):
     db = connect()
     cur = db.cursor()
+    cur.execute(select_session,tagId)
+    time = cur.fetchone()
+    if time < 5:
+        print "Error 2 talk to Dylan"
+        return 0
     cur.execute(log_out_status,tagId)
     db.commit()
     cur.execute(log_out_time,tagId)
@@ -70,7 +76,8 @@ def logOut(tagId):
     cur.execute(select_hours,tagId)
     hrs = cur.fetchone()
     db.close()
-    print "You have %s today and %s this week." % (hrs[0], hrs[1]) 
+    print "You have %s today and %s this week." % (hrs[0], hrs[1])
+    return 1
 
 def logAllOut():
     db = connect()
