@@ -244,17 +244,20 @@ def busMode():
 def busIn(tagId):
     db = connect()
     cur = db.cursor()
-    cur.execute(busLogIn, tagId)                
+    cur.execute(busLogIn, tagId)
+    db.commit()
     db.close()
     
 def busReset():
     db = connect()
     cur = db.cursor()
     cur.execute("UPDATE hours SET status = 0 WHERE status = -1")
+    db.commit()
     db.close()
 
 def busNotPresent():
     db = connect()
     cur = db.cursor()
     cur.execute("UPDATE hours SET status = -1 WHERE status = 0")
+    db.commit()
     db.close()

@@ -113,7 +113,7 @@ while True:
                 os.system('clear')
                 print "Bus Mode \n"
                 mysql.busMode()
-                print "Please wait..."
+                print "\nPlease wait..."
                 while len(string) != 0:
                     string = ser.read(12)
                 print "\nPlease scan your card..."
