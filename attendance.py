@@ -130,6 +130,19 @@ while True:
                         mysql.busNotPresent()
                         done = 1
                         break
+                    elif string in ('8800295F4D', '88002AC92D', '88002AC3D9', '0F03040D6F', '88002BDE26'):
+                        os.system('clear')
+                        print "Who forgot their card?"
+                        while True:
+                            try:
+                                first = raw_input("First name: ")
+                                last = raw_input("Last name: ")
+                                mysql.manualBus(first,last)
+                                break
+                            except Exception:
+                                print "That is not a valid name"
+
+                        temp = raw_input("Press Enter to continue")
                     else:
                         mysql.busIn(string)
                         break

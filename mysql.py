@@ -263,3 +263,14 @@ def busNotPresent():
     cur.execute("UPDATE hours SET status = 0 WHERE status = 1")
     db.commit()
     db.close()
+
+def manualBus(f, l):
+    db = connect()
+    cur = db.cursor()
+    name = (l,f)
+    cur.execute(manual_log,name)
+    tagId = cur.fetchone()
+    cur.execute(log_in_status, tagId)
+    db.commit()
+    print "BRING YOUR CARD!"
+    db.close()
