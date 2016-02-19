@@ -143,6 +143,7 @@ while True:
                                 print "That is not a valid name"
 
                         temp = raw_input("Press Enter to continue")
+                        break
                     else:
                         mysql.busIn(string)
                         break
