@@ -108,8 +108,10 @@ while True:
             
         #Card for bus mode
         elif string == '88002BE876':
+            done = 0
             while True:
                 os.system('clear')
+                print "Bus Mode \n"
                 mysql.busMode()
                 print "Please wait..."
                 while len(string) != 0:
@@ -121,13 +123,18 @@ while True:
     
                     if len(string) == 0:
                         continue
+                    
                     #Bus card again sets all missing to not present for
                     #this competition (status = -1) and ends script
                     elif string == '88002BE876':
                         mysql.busNotPresent()
+                        done = 1
                         break
                     else:
                         mysql.busIn(string)
+                        break
+                if done == 1:
+                    break
             break
                     
             
