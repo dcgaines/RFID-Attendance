@@ -260,4 +260,6 @@ def busNotPresent():
     cur = db.cursor()
     cur.execute("UPDATE hours SET status = -1 WHERE status = 0")
     db.commit()
+    cur.execute("UPDATE hours SET status = 0 WHERE status = 1")
+    db.commit()
     db.close()
