@@ -73,8 +73,8 @@ while True:
                     print "That is not a valid name"
             temp = raw_input("Press enter to continue")
         elif choice == 5:
-            end = raw_input("Is this the end of the week? (yes/no)")
-            if day.lower() == "yes":
+            end = raw_input("Is this the end of the week? (yes/no) ")
+            if end.lower() == "yes":
                 while True:
                     week = int(raw_input("What week number? "))
                     if week in(1,2,3,4,5,6):
