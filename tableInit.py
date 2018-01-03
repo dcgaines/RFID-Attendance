@@ -9,12 +9,12 @@
 import MySQLdb
 import serial
 
-db = MySQLdb.connect(host="localhost", user="root", passwd="obfuscate", db="HOURS")
+db = MySQLdb.connect(host="localhost", user="root", passwd="chickens", db="HOURS")
 cur = db.cursor()
 another = "yes"
 tag = ''
 ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=1)
-delete_statement = "DELETE FROM hours WHERE tagId = %s"
+delete_statement = "DELETE FROM hours WHERE tagId = %(tag)s"
 insert_statement = "INSERT INTO hours (tagId, first, last, status, hoursToday, hoursThisWeek) VALUES (%s, %s, %s, 0, 0, 0)"
 
 while another=="yes":
@@ -22,7 +22,7 @@ while another=="yes":
     last = raw_input("Last name: ")
     while len(tag) != 0:
         tag = ser.read(12)
-    while len(tag) == 0:
+    while len(tag) != 12:
         tag = ser.read(12)
     tag = tag[1:11]
     print tag
@@ -32,7 +32,7 @@ while another=="yes":
     db.commit()
     another = raw_input("Input another? (yes, no, deleteLast): ")
     if another == "deleteLast":
-       cur.execute(delete_statement, tag)
+       cur.execute(delete_statement, { 'tag': tag })
        db.commit()
        another = raw_input("Input another? (yes, no): ")
 
