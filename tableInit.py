@@ -23,8 +23,11 @@ while another=="yes":
     last = raw_input("Last name: ")
     while len(tag) != 0:
         tag = ser.read(12)
+    print "Scan: "
     while len(tag) != 12:
         tag = ser.read(12)
+	if "\n" in tag[1:11]:
+		tag = ""
     tag = tag[1:11]
     print tag
     ser.read(12)
@@ -40,8 +43,11 @@ while another=="yes":
 	old = tag
 	while len(tag) != 0:
 		tag = ser.read(12)
+        print "Scan: "
 	while len(tag) != 12:
 		tag = ser.read(12)
+		if "\n" in tag:
+			tag = ""
 	tag = tag[1:11]
 	print tag
 	ser.read(12)
