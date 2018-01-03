@@ -7,27 +7,27 @@
 import MySQLdb
 import datetime
 
-select_name = "SELECT first,last FROM hours WHERE tagId = %s"
-select_status = "SELECT status FROM hours WHERE tagId = %s"
-log_in_status = "UPDATE hours SET status = 1 WHERE tagId = %s"
-log_in_time = "UPDATE hours SET timeIn = NOW() WHERE tagId = %s"
-select_hours = "SELECT hoursToday,hoursThisWeek FROM hours WHERE tagId = %s"
-log_out_status = "UPDATE hours SET status = 0 WHERE tagId = %s"
-log_out_time = "UPDATE hours SET timeOut = NOW() WHERE tagId = %s"
-hours_today = "UPDATE hours SET hoursToday = ADDTIME(hoursToday, TIMEDIFF(timeOut, timeIn)) WHERE tagId = %s"
-hours_this_week = "UPDATE hours SET hoursThisWeek = ADDTIME(hoursThisWeek, TIMEDIFF(timeOut, timeIn)) WHERE tagId = %s"
+select_name = "SELECT first,last FROM hours WHERE tagId = %(tag)s"
+select_status = "SELECT status FROM hours WHERE tagId = %(tag)s"
+log_in_status = "UPDATE hours SET status = 1 WHERE tagId = %(tag)s"
+log_in_time = "UPDATE hours SET timeIn = NOW() WHERE tagId = %(tag)s"
+select_hours = "SELECT hoursToday,hoursThisWeek FROM hours WHERE tagId = %(tag)s"
+log_out_status = "UPDATE hours SET status = 0 WHERE tagId = %(tag)s"
+log_out_time = "UPDATE hours SET timeOut = NOW() WHERE tagId = %(tag)s"
+hours_today = "UPDATE hours SET hoursToday = ADDTIME(hoursToday, TIMEDIFF(timeOut, timeIn)) WHERE tagId = %(tag)s"
+hours_this_week = "UPDATE hours SET hoursThisWeek = ADDTIME(hoursThisWeek, TIMEDIFF(timeOut, timeIn)) WHERE tagId = %(tag)s"
 manual_log = "SELECT tagId FROM hours WHERE last = %s and first = %s"
-busLogIn = "UPDATE hours SET status = 1 WHERE tagId = %s"
-select_session = "SELECT TIMEDIFF(timeOut,timeIn) FROM hours WHERE tagId = %s"
+busLogIn = "UPDATE hours SET status = 1 WHERE tagId = %(tag)s"
+select_session = "SELECT TIMEDIFF(timeOut,timeIn) FROM hours WHERE tagId = %(tag)s"
 
 def connect():
     # Mysql connection setup. Insert your values here
-    return MySQLdb.connect(host="localhost", user="root", passwd="obfuscate", db="HOURS")
+    return MySQLdb.connect(host="localhost", user="root", passwd="chickens", db="HOURS")
 
 def getName(tagId):
     db = connect()
     cur = db.cursor()
-    cur.execute(select_name,tagId)
+    cur.execute(select_name, {'tag' : tagId})
     row = cur.fetchone()
     db.close()
     if(row==None):
@@ -38,7 +38,7 @@ def getName(tagId):
 def getInOut(tagId):
     db = connect()
     cur = db.cursor()
-    cur.execute(select_status,tagId)
+    cur.execute(select_status,{'tag' : tagId})
     #1 is in, 0 is out
     inOut = cur.fetchone()
     status = int(inOut[0])
@@ -48,11 +48,11 @@ def getInOut(tagId):
 def logIn(tagId):
     db = connect()
     cur = db.cursor()
-    cur.execute(log_in_status,tagId)
+    cur.execute(log_in_status,{'tag' : tagId})
     db.commit()
-    cur.execute(log_in_time,tagId)
+    cur.execute(log_in_time,{'tag' : tagId})
     db.commit()
-    cur.execute(select_hours,tagId)
+    cur.execute(select_hours,{'tag' : tagId})
     hrs = cur.fetchone()
     db.close()
     print "You have %s today and %s this week." % (hrs[0], hrs[1])
@@ -60,20 +60,20 @@ def logIn(tagId):
 def logOut(tagId):
     db = connect()
     cur = db.cursor()
-    cur.execute(select_session,tagId)
+    cur.execute(select_session,{'tag' : tagId})
     time = cur.fetchone()
     if time < 5:
         print "Error 2 talk to Dylan"
         return 0
-    cur.execute(log_out_status,tagId)
+    cur.execute(log_out_status,{'tag' : tagId})
     db.commit()
-    cur.execute(log_out_time,tagId)
+    cur.execute(log_out_time,{'tag' : tagId})
     db.commit()
-    cur.execute(hours_today,tagId)
+    cur.execute(hours_today,{'tag' : tagId})
     db.commit()
-    cur.execute(hours_this_week,tagId)
+    cur.execute(hours_this_week,{'tag' : tagId})
     db.commit()
-    cur.execute(select_hours,tagId)
+    cur.execute(select_hours,{'tag' : tagId})
     hrs = cur.fetchone()
     db.close()
     print "You have %s today and %s this week." % (hrs[0], hrs[1])
@@ -244,7 +244,7 @@ def busMode():
 def busIn(tagId):
     db = connect()
     cur = db.cursor()
-    cur.execute(busLogIn, tagId)
+    cur.execute(busLogIn, {'tag' : tagId})
     db.commit()
     db.close()
     
@@ -270,7 +270,7 @@ def manualBus(f, l):
     name = (l,f)
     cur.execute(manual_log,name)
     tagId = cur.fetchone()
-    cur.execute(log_in_status, tagId)
+    cur.execute(log_in_status, {'tag' : tagId})
     db.commit()
     print "BRING YOUR CARD!"
     db.close()

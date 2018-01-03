@@ -27,178 +27,182 @@ string = ''
 ser = serial.Serial('/dev/ttyAMA0', 2400, timeout=1)
 while True:
     #continuously loops scanning for a card until it receives a value
-    #string = ''
-    string = ser.read(12)
+
+    while len(string) != 12:
+	string = ser.read(12)
+	if "\n" in string[1:11]:
+		string = ""
     string = string[1:11]
     
-    if len(string) == 0:
-        continue
-    else:
-        #tagId of master card used to log all out.
-        if string in('8800295F4D', '88002AC92D', '88002AC3D9', '0F03040D6F', '88002BDE26'):
-            os.system('clear')
+    
+    
+    
+    #tagId of master card used to log all out.
+    if string in('8800295F4D', '88002AC92D', '88002AC3D9', '0F03040D6F', '88002BDE26'):
+        os.system('clear')
+        while True:
+            try:
+                choice = int(raw_input(menu))
+                if choice in (1,2,3,4,5,6,7):
+                    break
+                else:
+                    print "Invalid input, please enter an integer from 1-7."
+            except ValueError:
+                print "Invalid input, please enter an integer from 1-7."
+
+        os.system('clear')
+
+        if choice == 1:
+            mysql.viewAll()
+            temp = raw_input("\nPress enter to continue")
+        elif choice == 2:
+            mysql.viewIn()
+            temp = raw_input("\nPress enter to continue")
+        elif choice == 3:
+            mysql.viewOut()
+            temp = raw_input("\nPress enter to continue")
+        elif choice == 4:
+            print "Manual Log\n\n"
             while True:
                 try:
-                    choice = int(raw_input(menu))
-                    if choice in (1,2,3,4,5,6,7):
+                    first = raw_input("First name: ")
+                    last = raw_input("Last name: ")
+                    mysql.manualLog(first,last)
+                    break
+                except Exception:
+                    print "That is not a valid name"
+            temp = raw_input("Press enter to continue")
+        elif choice == 5:
+            day = raw_input("What day is today? ")
+            if day.lower() == "saturday":
+                while True:
+                    week = int(raw_input("What week number? "))
+                    if week in(1,2,3,4,5,6):
                         break
                     else:
-                        print "Invalid input, please enter an integer from 1-7."
-                except ValueError:
-                    print "Invalid input, please enter an integer from 1-7."
-
-            os.system('clear')
-
-            if choice == 1:
-                mysql.viewAll()
-                temp = raw_input("\nPress enter to continue")
-            elif choice == 2:
-                mysql.viewIn()
-                temp = raw_input("\nPress enter to continue")
-            elif choice == 3:
-                mysql.viewOut()
-                temp = raw_input("\nPress enter to continue")
-            elif choice == 4:
-                print "Manual Log\n\n"
-                while True:
-                    try:
-                        first = raw_input("First name: ")
-                        last = raw_input("Last name: ")
-                        mysql.manualLog(first,last)
-                        break
-                    except Exception:
-                        print "That is not a valid name"
-                temp = raw_input("Press enter to continue")
-            elif choice == 5:
-                day = raw_input("What day is today? ")
-                if day.lower() == "saturday":
-                    while True:
-                        week = int(raw_input("What week number? "))
-                        if week in(1,2,3,4,5,6):
-                            break
-                        else:
-                            print "Error in week number"
-                    mysql.endWeek(week)
-                    break
-                else:
-                    mysql.logAllOut()
-                    break
-            elif choice == 6:
-                mysql.busReset()
+                        print "Error in week number"
+                mysql.endWeek(week)
+                break
             else:
-                os.system('clear')
-            os.system('clear')
-            print "Please wait..."
-            while len(string) != 0:
-                string = ser.read(12)
-            os.system('clear')
-            print "Please scan your card..."
-
-        #card to view all hours    
-        elif string == '88002A5CBD':
-            os.system('clear')
-            mysql.viewAll()
-            temp = raw_input("\nPress Enter to continue.")
-            os.system('clear')
-            print "Please wait..."
-            while len(string) != 0:
-                string = ser.read(12)
-            os.system('clear')
-            print "Please scan your card..."
-            
-        #Card for bus mode
-        elif string == '88002BE876':
-            done = 0
-            while True:
-                os.system('clear')
-                print "Bus Mode \n"
-                mysql.busMode()
-                print "\nPlease wait..."
-                while len(string) != 0:
-                    string = ser.read(12)
-                print "\nPlease scan your card..."
-                while True:
-                    string = ser.read(12)
-                    string = string[1:11]
-    
-                    if len(string) == 0:
-                        continue
-                    
-                    #Bus card again sets all missing to not present for
-                    #this competition (status = -1) and ends script
-                    elif string == '88002BE876':
-                        mysql.busNotPresent()
-                        done = 1
-                        break
-                    elif string in ('8800295F4D', '88002AC92D', '88002AC3D9', '0F03040D6F', '88002BDE26'):
-                        os.system('clear')
-                        print "Who forgot their card?"
-                        while True:
-                            try:
-                                first = raw_input("First name: ")
-                                last = raw_input("Last name: ")
-                                mysql.manualBus(first,last)
-                                break
-                            except Exception:
-                                print "That is not a valid name"
-
-                        temp = raw_input("Press Enter to continue")
-                        break
-                    else:
-                        mysql.busIn(string)
-                        break
-                if done == 1:
-                    break
-            break
-                    
-            
+                mysql.logAllOut()
+                break
+        elif choice == 6:
+            mysql.busReset()
         else:
-            #checks if student is currently logged in or out
-            try:
-                status = mysql.getInOut(string)
-            except Exception:
-                continue
-            if status == -1:
-                print "Tell Cameron to reset bus mode"
-                time.sleep(5)
-                os.system('clear')
-                print "Please wait..."
-                while len(string) != 0:
-                    string = ser.read(12)
-                os.system('clear')
-                print "Please scan your card..."
-                
-            elif status == 0:
-                #if student is out, log them in
-                print "Hello "+mysql.getName(string)
-                print "Logging In..."
-                mysql.logIn(string)
-                print "Logged In!"
-                print "\n\nPlease Wait..."
-                time.sleep(5)
-                os.system('clear')
-                print "Please wait..."
-                while len(string) != 0:
-                    string = ser.read(12)
-                os.system('clear')
-                print "Please scan your card..."
-                
-            elif status == 1:
-                #if student is in log them out
-                print "Goodbye "+mysql.getName(string)
-                print "Logging Out..."
-                if mysql.logOut(string) == 1:
-                    print "Logged Out!"
-                    print "\n\nPlease Wait..."
+            os.system('clear')
+        os.system('clear')
+        print "Please wait..."
+        while len(string) != 0:
+            string = ser.read(12)
+        os.system('clear')
+        print "Please scan your card..."
+
+    #card to view all hours    
+    elif string == '88002A5CBD':
+        os.system('clear')
+        mysql.viewAll()
+        temp = raw_input("\nPress Enter to continue.")
+        os.system('clear')
+        print "Please wait..."
+        while len(string) != 0:
+            string = ser.read(12)
+        os.system('clear')
+        print "Please scan your card..."
+            
+    #Card for bus mode
+    elif string == '88002BE876':
+        done = 0
+        while True:
+            os.system('clear')
+            print "Bus Mode \n"
+            mysql.busMode()
+            print "\nPlease wait..."
+            while len(string) != 0:
+                string = ser.read(12)
+            print "\nPlease scan your card..."
+            while True:
+                string = ser.read(12)
+                string = string[1:11]
+   
+                if len(string) == 0:
+                    continue
+                    
+                #Bus card again sets all missing to not present for
+                #this competition (status = -1) and ends script
+                elif string == '88002BE876':
+                    mysql.busNotPresent()
+                    done = 1
+                    break
+                elif string in ('8800295F4D', '88002AC92D', '88002AC3D9', '0F03040D6F', '88002BDE26'):
+                    os.system('clear')
+                    print "Who forgot their card?"
+                    while True:
+                        try:
+                            first = raw_input("First name: ")
+                            last = raw_input("Last name: ")
+                            mysql.manualBus(first,last)
+                            break
+                        except Exception:
+                            print "That is not a valid name"
+
+                    temp = raw_input("Press Enter to continue")
+                    break
                 else:
-                    print "Error talk to Dylan"
-                time.sleep(5)
-                os.system('clear')
-                print "Please wait..."
-                while len(string) != 0:
-                        string = ser.read(12)
-                os.system('clear')
-                print "Please scan your card..."
+                    mysql.busIn(string)
+                    break
+            if done == 1:
+                break
+        break
+                    
+            
+    else:
+        #checks if student is currently logged in or out
+        try:
+	    print "scanned"
+            status = mysql.getInOut(string)
+        except Exception:
+            continue
+        if status == -1:
+            print "Tell Cameron to reset bus mode"
+            time.sleep(5)
+            os.system('clear')
+            print "Please wait..."
+            while len(string) != 0:
+                string = ser.read(12)
+            os.system('clear')
+            print "Please scan your card..."
+                
+        elif status == 0:
+            #if student is out, log them in
+            print "Hello "+mysql.getName(string)
+            print "Logging In..."
+            mysql.logIn(string)
+            print "Logged In!"
+            print "\n\nPlease Wait..."
+            time.sleep(5)
+            os.system('clear')
+            print "Please wait..."
+            while len(string) != 0:
+                string = ser.read(12)
+            os.system('clear')
+            print "Please scan your card..."
+                
+        elif status == 1:
+            #if student is in log them out
+            print "Goodbye "+mysql.getName(string)
+            print "Logging Out..."
+            if mysql.logOut(string) == 1:
+                print "Logged Out!"
+                print "\n\nPlease Wait..."
             else:
-                #status will only ever be 0 or 1 or -1
-                print "Something went wrong blame mechanical"
+                print "Error talk to Dylan"
+            time.sleep(5)
+            os.system('clear')
+            print "Please wait..."
+            while len(string) != 0:
+                    string = ser.read(12)
+            os.system('clear')
+            print "Please scan your card..."
+        else:
+            #status will only ever be 0 or 1 or -1
+            print "Something went wrong blame mechanical"
